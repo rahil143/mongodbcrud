@@ -1,17 +1,17 @@
 const Useres = require('../models/User.model.js');
 
-// Create and Save a new Useres
+// Create and Save a new User
 exports.create = (req, res) => {
     // Validate request
     if(!req.body.content) {
         return res.status(400).send({
-            message: "Useress content can not be empty"
+            message: "User details can not be empty"
         });
     }
 
     // Create a Useres
     const Useres = new Useres({
-        title: req.body.title || "Untitled Useress", 
+        title: req.body.title || "Untitled User", 
         content: req.body.content
     });
 
@@ -21,7 +21,7 @@ exports.create = (req, res) => {
         res.send(data);
     }).catch(err => {
         res.status(500).send({
-            message: err.message || "Some error occurred while creating the Useress."
+            message: err.message || "Some error occurred while creating the User."
         });
     });
 };
@@ -33,12 +33,12 @@ exports.findAll = (req, res) => {
         res.send(Useress);
     }).catch(err => {
         res.status(500).send({
-            message: err.message || "Some error occurred while retrieving Useress."
+            message: err.message || "Some error occurred while retrieving User."
         });
     });
 };
 
-// Find a single Useres with a Useresid
+// Find a single User with a Userid
 exports.findOne = (req, res) => {
     Useres.findById(req.params.userid)
     .then(Useres => {
@@ -51,11 +51,11 @@ exports.findOne = (req, res) => {
     }).catch(err => {
         if(err.kind === 'ObjectId') {
             return res.status(404).send({
-                message: "Useres not found with id or some Error" + req.params.userid
+                message: err.message + "/n Useres not found with id or some Error" + req.params.userid
             });                
         }
         return res.status(500).send({
-            message: "Error retrieving Useres with id " + req.params.userid
+            message: err.message + " /n Error retrieving Useres with id " + req.params.userid
         });
     });
 };
